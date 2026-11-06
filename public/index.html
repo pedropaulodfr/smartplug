@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Smart Plug</title>
+    <meta name="description" content="Controle local do seu smart plug" />
+    <meta name="theme-color" content="#07090f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Plug" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/icons/icon-180.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="status-dot" id="status-dot" data-state="offline"></span>
+          <div class="brand-text">
+            <p class="eyebrow">Smart Plug</p>
+            <h1 id="device-name">Carregando…</h1>
+          </div>
+        </div>
+        <button class="icon-btn" id="refresh" type="button" aria-label="Atualizar agora">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 11a8 8 0 1 0-2.3 5.7" />
+            <path d="M20 4v7h-7" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="content">
+        <section class="hero" aria-labelledby="hero-state">
+          <button class="power" id="power" type="button" aria-pressed="false" aria-label="Ligar ou desligar">
+            <span class="power-halo" aria-hidden="true"></span>
+            <svg class="power-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v8" />
+              <path d="M18.4 6.6a9 9 0 1 1-12.8 0" />
+            </svg>
+          </button>
+
+          <p class="hero-state" id="hero-state">—</p>
+
+          <p class="hero-power">
+            <span id="power-value">0</span><span class="unit">W</span>
+          </p>
+          <p class="hero-sub" id="hero-sub">conectando ao aparelho…</p>
+        </section>
+
+        <section class="metrics" aria-label="Medições">
+          <article class="metric">
+            <span class="metric-label">Tensão</span>
+            <p><strong id="voltage">—</strong><span class="unit">V</span></p>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Corrente</span>
+            <p><strong id="current">—</strong><span class="unit">A</span></p>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Consumo</span>
+            <p><strong id="energy">—</strong><span class="unit">kWh</span></p>
+          </article>
+          <article class="metric">
+            <span class="metric-label">Latência</span>
+            <p><strong id="latency">—</strong><span class="unit">ms</span></p>
+          </article>
+        </section>
+
+        <section class="card chart-card" aria-label="Histórico de consumo">
+          <header class="chart-head">
+            <h2>Consumo</h2>
+            <span class="muted" id="chart-range">últimos minutos</span>
+          </header>
+          <canvas id="chart" height="118" aria-hidden="true"></canvas>
+          <p class="chart-empty" id="chart-empty">Sem leituras ainda</p>
+        </section>
+
+        <p class="footnote" id="footnote">aguardando o aparelho…</p>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

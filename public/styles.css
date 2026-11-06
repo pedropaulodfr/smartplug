@@ -1,0 +1,464 @@
+:root {
+  --bg: #07090f;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-strong: rgba(255, 255, 255, 0.075);
+  --line: rgba(255, 255, 255, 0.075);
+  --text: #eef1f8;
+  --muted: #7d879b;
+  --accent: #ffb648;
+  --accent-soft: rgba(255, 182, 72, 0.16);
+  --ok: #4ade80;
+  --danger: #ff6b6b;
+  --radius: 22px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Brilho de fundo que acompanha o estado do plug */
+.glow {
+  position: fixed;
+  inset: -20% -20% auto -20%;
+  height: 70vh;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 55% at 50% 0%, rgba(255, 182, 72, 0.16), transparent 70%),
+    radial-gradient(40% 40% at 85% 10%, rgba(96, 122, 255, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+  z-index: 0;
+}
+
+body.is-on .glow {
+  opacity: 1;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: max(14px, env(safe-area-inset-top)) 20px calc(22px + env(safe-area-inset-bottom));
+}
+
+/* ------------------------------------------------------------------ */
+/* Topo                                                                */
+/* ------------------------------------------------------------------ */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 2px 22px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-dot {
+  position: relative;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+  box-shadow: 0 0 0 4px rgba(125, 135, 155, 0.12);
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.status-dot[data-state="online"] {
+  background: var(--ok);
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.14);
+}
+
+.status-dot[data-state="online"]::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(74, 222, 128, 0.5);
+  animation: ping 2.6s var(--ease) infinite;
+}
+
+@keyframes ping {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  70%, 100% { transform: scale(2.1); opacity: 0; }
+}
+
+.icon-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s var(--ease);
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-btn.spinning svg {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Botão de energia                                                    */
+/* ------------------------------------------------------------------ */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0 22px;
+}
+
+.power {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 164px;
+  height: 164px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.07), transparent 60%),
+    #0d1017;
+  color: var(--muted);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.25s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    box-shadow 0.45s var(--ease),
+    background 0.45s var(--ease);
+}
+
+.power::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: border-color 0.35s var(--ease);
+}
+
+.power:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.power:active {
+  transform: scale(0.965);
+}
+
+.power:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.power-icon {
+  width: 52px;
+  height: 52px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  transition: transform 0.4s var(--ease);
+}
+
+.power-halo {
+  position: absolute;
+  inset: -36px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 182, 72, 0.3) 0%,
+    rgba(255, 182, 72, 0.14) 42%,
+    rgba(255, 182, 72, 0.04) 62%,
+    transparent 76%
+  );
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  pointer-events: none;
+}
+
+body.is-on .power {
+  color: var(--accent);
+  border-color: rgba(255, 182, 72, 0.42);
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 182, 72, 0.16), transparent 62%),
+    #100d09;
+  box-shadow:
+    0 0 0 1px rgba(255, 182, 72, 0.08),
+    0 18px 60px -18px rgba(255, 160, 40, 0.55);
+}
+
+body.is-on .power::before {
+  border-color: rgba(255, 182, 72, 0.16);
+}
+
+body.is-on .power-halo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.power.pending {
+  pointer-events: none;
+}
+
+.power.pending::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--accent);
+  border-right-color: rgba(255, 182, 72, 0.35);
+  animation: spin 0.8s linear infinite;
+}
+
+.hero-state {
+  margin-top: 22px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.35s var(--ease);
+}
+
+body.is-on .hero-state {
+  color: var(--accent);
+}
+
+.hero-power {
+  margin-top: 10px;
+  font-size: clamp(42px, 14vw, 58px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-power .unit {
+  margin-left: 6px;
+  font-size: 0.34em;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.hero-sub {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  min-height: 18px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Métricas                                                            */
+/* ------------------------------------------------------------------ */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.metric {
+  padding: 16px 16px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.metric-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.metric p {
+  margin-top: 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric strong {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.unit {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Gráfico                                                             */
+/* ------------------------------------------------------------------ */
+.chart-card {
+  margin-top: 10px;
+  padding: 18px 16px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  position: relative;
+}
+
+.chart-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.muted {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+#chart {
+  display: block;
+  width: 100%;
+  height: 118px;
+}
+
+.chart-empty {
+  position: absolute;
+  inset: auto 0 56px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  transition: opacity 0.3s;
+}
+
+.chart-empty[hidden] {
+  display: none;
+}
+
+.footnote {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(125, 135, 155, 0.8);
+}
+
+/* ------------------------------------------------------------------ */
+/* Toast                                                               */
+/* ------------------------------------------------------------------ */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 10;
+  max-width: min(420px, calc(100vw - 40px));
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  background: rgba(30, 12, 14, 0.92);
+  color: #ffd8d8;
+  font-size: 13px;
+  backdrop-filter: blur(12px);
+  transform: translate(-50%, 140%);
+  opacity: 0;
+  transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

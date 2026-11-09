@@ -32,7 +32,8 @@ Requisitos: Node 18+ (aqui: v24). `config.json` é obrigatório para `npm start`
 | unidades (W, V, A, kWh) | `src/normalize.js` |
 | mapa de DPs do modelo | `src/dps.js` + `config.json` |
 | rotas/WS | `src/server.js` |
-| UI | `public/` |
+| UI (PWA) | `public/` |
+| app Android nativo (Compose, automações, geofencing) | `android/` — veja `android/README.md` |
 
 ## Invariantes (quebrar qualquer um destes vira bug)
 

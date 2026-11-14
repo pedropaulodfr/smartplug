@@ -23,6 +23,7 @@ com.smartplug.app
 ├─ location/          GeofenceManager, GeofenceReceiver, LocationTracker, PermissionChecker
 ├─ workers/           WorkScheduler + EngineWorker (WorkManager)
 ├─ receivers/         BootReceiver (boot, atualização do app, mudança de fuso/hora)
+├─ widget/            widget de tela inicial (AppWidgetProvider + worker de toggle)
 ├─ notifications/     AutomationNotifier
 ├─ features/          dashboard · automations (lista, editor em 4 etapas, modelos) · locations · history · settings
 ├─ ui/                tema Material 3, componentes reutilizáveis, navegação
@@ -100,6 +101,17 @@ Não usa Foreground Service, `SCHEDULE_EXACT_ALARM` nem `REQUEST_IGNORE_BATTERY_
 - **Geofencing** (`ENTER`/`EXIT`, sem GPS contínuo): o `GeofenceReceiver` roda o motor na hora (`goAsync`, 9 s); se estourar, o WorkManager assume com os mesmos eventos. Sem gatilho inicial, para não gerar "chegou" falso ao registrar. A posição conhecida vem de `lastLocation` (gratuita) e de uma leitura única ao registrar.
 - **Reinício/atualização/fuso:** `BootReceiver` reagenda o periódico, registra os geofences de novo e roda uma rodada de recuperação; o estado (última execução, permanências, status dos locais) está no Room, então não há disparo duplicado.
 - **Não há Foreground Service**: nada exige execução contínua; evita notificação permanente e consumo de bateria.
+
+### 5.1 Widget de tela inicial
+
+Um widget 2x1 liga e desliga o plug com um toque, sem abrir o app:
+
+- **Toque** → `PlugWidgetProvider` responde no próprio receptor com `goAsync()` + corrotina de IO: lê o estado real (`PlugGateway.readState`), inverte e confirma. O widget nunca "chuta" o estado atual.
+- **Sem WorkManager neste caminho**: um trabalho único pendente (`ExistingWorkPolicy.KEEP`) pode bloquear toques seguintes; a execução inline evita isso e devolve resposta em ~1–2 s.
+- **Estados visuais**: desligado (cinza), ligado (âmbar, mostrando tensão e potência), alternando e erro (vermelho com motivo curto: "Sem conexão", "Plug offline", "Configure em Ajustes").
+- **Sincronização**: `MainActivity.onStart` envia um broadcast de refresh (o provider ignora quando não há widget); o widget também se atualiza ao ser adicionado ou redimensionado.
+- **Orçamento de tempo**: 7 s para leitura e 9 s para o comando, dentro da janela de ~10 s do `goAsync()`.
+- **Arquivos**: `widget/PlugWidgetProvider.kt` (receptor), `WidgetActions.kt` (lógica), `PlugWidgetRenderer.kt` (RemoteViews), `PlugWidgetState.kt` (cache); layout `res/layout/widget_plug.xml`; configuração `res/xml/plug_widget_info.xml`.
 
 ## 6. Limitações (leia antes de confiar)
 

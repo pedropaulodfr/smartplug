@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Previa estatica mostrada no seletor de widgets (estado "ligado" com valores de exemplo). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="64dp"
+    android:background="@drawable/widget_bg_on"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp">
+
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_widget_power"
+        android:tint="@color/widget_icon_on" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="@string/widget_title_on"
+            android:textColor="@color/widget_title_on"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:text="238 V · 49 W"
+            android:textColor="@color/widget_subtitle"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

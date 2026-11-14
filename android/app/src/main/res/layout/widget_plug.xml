@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout do widget. Mantido simples de proposito: apenas views suportadas
+     por RemoteViews (LinearLayout, TextView, ImageView). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="64dp"
+    android:background="@drawable/widget_bg_off"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp">
+
+    <ImageView
+        android:id="@+id/widget_icon"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_widget_power" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="@string/widget_title_off"
+            android:textColor="@color/widget_title_off"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/widget_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/widget_subtitle_hint_off"
+            android:textColor="@color/widget_subtitle"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -57,6 +57,19 @@
             </intent-filter>
         </receiver>
 
+        <!-- Widget de tela inicial: toque alterna o plug (comando via WorkManager) -->
+        <receiver
+            android:name=".widget.PlugWidgetProvider"
+            android:exported="false"
+            android:label="@string/widget_description">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/plug_widget_info" />
+        </receiver>
+
         <!-- WorkManager é inicializado pelo Application (HiltWorkerFactory) -->
         <provider
             android:name="androidx.startup.InitializationProvider"

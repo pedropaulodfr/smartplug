@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Liga e desliga o Smart Plug com um toque</string>
+    <string name="widget_title_on">Ligado</string>
+    <string name="widget_title_off">Desligado</string>
+    <string name="widget_title_pending">Alternando…</string>
+    <string name="widget_title_error">Falhou</string>
+    <string name="widget_subtitle_unknown">Toque para alternar</string>
+    <string name="widget_subtitle_hint_on">Toque para desligar</string>
+    <string name="widget_subtitle_hint_off">Toque para ligar</string>
+
+    <string name="widget_error_not_configured">Configure em Ajustes</string>
+    <string name="widget_error_network">Sem conexão</string>
+    <string name="widget_error_timeout">Tempo esgotado</string>
+    <string name="widget_error_auth">Credenciais inválidas</string>
+    <string name="widget_error_offline">Plug offline</string>
+    <string name="widget_error_rejected">Comando recusado</string>
+    <string name="widget_error_unconfirmed">Sem confirmação do plug</string>
+    <string name="widget_error_unknown">Falha ao alternar</string>
+</resources>

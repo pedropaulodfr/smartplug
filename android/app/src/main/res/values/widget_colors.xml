@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Widget de tela inicial -->
+    <color name="widget_bg_on">#1B1407</color>
+    <color name="widget_bg_off">#101319</color>
+    <color name="widget_bg_pending">#171A21</color>
+    <color name="widget_bg_error">#1E1114</color>
+
+    <color name="widget_stroke_on">#59FFB648</color>
+    <color name="widget_stroke_off">#1AFFFFFF</color>
+    <color name="widget_stroke_error">#59FF6B6B</color>
+
+    <color name="widget_icon_on">#FFB648</color>
+    <color name="widget_icon_off">#8B93A5</color>
+    <color name="widget_icon_pending">#8B93A5</color>
+
+    <color name="widget_title_on">#FFE2B8</color>
+    <color name="widget_title_off">#EEF1F8</color>
+    <color name="widget_title_pending">#C7CCD8</color>
+    <color name="widget_title_error">#FFB4B4</color>
+
+    <color name="widget_subtitle">#8B93A5</color>
+</resources>
